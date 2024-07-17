@@ -2,10 +2,14 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { Result } from "postcss";
 
 
 const SignUp = () => {
     const [showPass, setShowPass] = useState(false);
+
+    const axiosPublic = useAxiosPublic();
 
 
     const {
@@ -16,8 +20,29 @@ const SignUp = () => {
     } = useForm();
 
     const onSubmit = (data) => {
-        console.log(data);
         // console.log(data);
+        // console.log(data);
+
+        const status = 'pending';
+
+        const userInfo = {
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            password: data.password,
+            userType: data.userType,
+            status
+
+
+
+        }
+
+        console.log(userInfo);
+
+        axiosPublic.post('/users', userInfo)
+            .then(data => {
+                console.log(data.data)
+            })
     }
 
 
@@ -45,7 +70,7 @@ const SignUp = () => {
                             {errors.name && <span className='text-red-400'>Name field is required</span>}
 
                         </div>
-                     
+
 
 
                         <div className="form-control">
@@ -72,15 +97,15 @@ const SignUp = () => {
                                 <input type={showPass ? 'text' : 'password'}    {...register("password", {
                                     required: true,
                                     minLength: 5,
-                                    maxLength: 20,
+                                    maxLength: 5,
                                     /* pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/ */
 
 
                                 })} name="password" placeholder="Your Pin" className="input input-bordered w-full" />
 
                                 {errors.password?.type === 'required' && <span className='text-red-400'>Password field is required</span>}
-                                {errors.password?.type === 'minLength' && <span className='text-red-400'>Password must be 6 characters</span>}
-                                {errors.password?.type === 'maxLength' && <span className='text-red-400'>Password must be less 20 characters</span>}
+                                {errors.password?.type === 'minLength' && <span className='text-red-400'>Password must be 5 characters</span>}
+                                {errors.password?.type === 'maxLength' && <span className='text-red-400'>Password must be less 5 characters</span>}
                                 {errors.password?.type === 'pattern' && <span className='text-red-400'>Password must have one uppercase and one lowercase and one number,  one special characters</span>}
 
                                 {/* eye icon or show password icon */}
@@ -118,7 +143,7 @@ const SignUp = () => {
                             <input className="btn hover:text-orange-400 text-white text-xl w-full bg-orange-400" type="submit" value="Sign up" />
 
                         </div>
-                      
+
 
 
                         <div className="text-center " >
