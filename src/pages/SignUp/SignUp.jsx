@@ -26,7 +26,7 @@ const SignUp = () => {
     return (
         <section>
 
-            <div className="flex flex-col  justify-center items-center lg:py-20 py-12 bg-[linear-gradient(45deg,rgba(0,0,0,0.2),rgba(0,0,0,0.3)),url(https://i.ibb.co/fH0S3yh/parcel5.jpg)] bg-center bg-cover object-cover object-center  ">
+            <div className="flex flex-col  justify-center items-center lg:py-20 py-12 bg-[linear-gradient(45deg,rgba(0,0,0,0.2),rgba(0,0,0,0.3)),url(https://i.ibb.co/P4ZL2zL/cash.jpg)] bg-center bg-cover object-cover object-center  ">
 
 
 
@@ -76,7 +76,7 @@ const SignUp = () => {
                                     /* pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/ */
 
 
-                                })} name="password" placeholder="password" className="input input-bordered w-full" />
+                                })} name="password" placeholder="Your Pin" className="input input-bordered w-full" />
 
                                 {errors.password?.type === 'required' && <span className='text-red-400'>Password field is required</span>}
                                 {errors.password?.type === 'minLength' && <span className='text-red-400'>Password must be 6 characters</span>}
@@ -105,7 +105,7 @@ const SignUp = () => {
                                 <option disabled value="">Choose a UserType</option>
                                 <option value="User">User</option>
                                 {/* <option value="Admin">Admin</option> */}
-                                <option value="DeliveryMen">DeliveryMen</option>
+                                <option value="Agent">Agent</option>
 
                             </select>
                             {errors.userType && <span className='text-red-400'>userType field is required</span>}
