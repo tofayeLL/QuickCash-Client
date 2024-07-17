@@ -1,15 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import { Result } from "postcss";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const SignUp = () => {
     const [showPass, setShowPass] = useState(false);
 
     const axiosPublic = useAxiosPublic();
+
+    const navigate = useNavigate();
 
 
     const {
@@ -24,6 +27,7 @@ const SignUp = () => {
         // console.log(data);
 
         const status = 'pending';
+        const balance = 0;
 
         const userInfo = {
             name: data.name,
@@ -31,17 +35,25 @@ const SignUp = () => {
             phone: data.phone,
             password: data.password,
             userType: data.userType,
-            status
+            status,
+            balance
 
 
 
         }
 
-        console.log(userInfo);
+        // console.log(userInfo);
 
         axiosPublic.post('/users', userInfo)
             .then(data => {
                 console.log(data.data)
+                if (data.data.insertedId) {
+                    // console.log('user added database successfully');
+                    toast.success("Sign up Successfully");
+                    reset();
+                    navigate('/login')
+
+                }
             })
     }
 
